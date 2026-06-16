@@ -112,7 +112,7 @@ Mengekspor hasil prompt ke:
 
 ## Test Case Table
 
-| ID Test | Skenario Uji (Test Case) | Input Pengguna (Tindakan) | Output yang Diharapkan (Ekspektasi) | Pass | Fail |
+| ID Test | Skenario Uji (Test Case) | Input Pengguna (Tindakan) | Output yang Diharapkan (Ekspektasi) |  Pass  |  Fail  |
 |----------|--------------------------|----------------------------|--------------------------------------|------|------|
 | TC-01 | Normal Case: Membuat prompt dari System Template. | Pilih Menu 1 → Pilih Template 2 → Subject: *A futuristic city* → Ekspor: N | Mencetak JSON dengan subjek yang benar dan kembali ke Menu Utama. | - [ ] | - [ ] |
 | TC-02 | Normal Case: Membuat Custom Template & Simpan ke DB. | Pilih Menu 2 → Isi semua parameter → Simpan: Y → Nama: *TestStyle* | Mencetak JSON, ada notifikasi sukses simpan DB, dan tampil di Menu 3. | - [ ] | - [ ] |
