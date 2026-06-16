@@ -1,6 +1,13 @@
 # CLI-IMAGE-PROMTER
 
 Proyek CLI berbasis Java untuk membuat prompt gambar menggunakan template sistem, template kustom, dan penyimpanan riwayat ke database.
+Proyek ini diinisiasi oleh kelompok guna memenuhi tugas besar mata kuliah Pemrograman 1.
+
+## Kelompok
+
+- Dea Amellya       24101140
+- Muhammad Rafli    24101140
+- Rizki Ramadani    241011400098
 
 ## Struktur Folder
 
