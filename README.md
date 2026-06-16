@@ -1,18 +1,100 @@
-## Getting Started
+# CLI-IMAGE-PROMTER
 
-Welcome to the VS Code Java world. Here is a guideline to help you get started to write Java code in Visual Studio Code.
+Proyek CLI berbasis Java untuk membuat prompt gambar menggunakan template sistem, template kustom, dan penyimpanan riwayat ke database.
 
-## Folder Structure
+## Struktur Folder
 
-The workspace contains two folders by default, where:
+```text
+CLI-IMAGE-PROMTER/
+│
+├── .vscode/
+│   └── Konfigurasi Visual Studio Code
+│
+├── bin/
+│   └── Hasil kompilasi (.class)
+│
+├── lib/
+│   └── Library atau dependency eksternal
+│
+├── src/
+│   │
+│   ├── core/
+│   │   └── PromptGenerator.java
+│   │       └── Logika utama pembentukan prompt
+│   │
+│   ├── database/
+│   │   ├── DatabaseConfig.java
+│   │   │   └── Konfigurasi koneksi database
+│   │   │
+│   │   └── DBManager.java
+│   │       └── Operasi CRUD database
+│   │
+│   ├── main/
+│   │   └── MainCLI.java
+│   │       └── Entry point aplikasi CLI
+│   │
+│   ├── models/
+│   │   ├── CustomTemplate.java
+│   │   │   └── Model template kustom
+│   │   │
+│   │   ├── PromptTemplate.java
+│   │   │   └── Model dasar template prompt
+│   │   │
+│   │   └── SystemTemplate.java
+│   │       └── Model template bawaan sistem
+│   │
+│   └── utils/
+│       └── FileExporter.java
+│           └── Export hasil prompt ke file
+│
+├── .gitignore
+│   └── Daftar file/folder yang diabaikan Git
+│
+└── README.md
+    └── Dokumentasi proyek
+```
 
-- `src`: the folder to maintain sources
-- `lib`: the folder to maintain dependencies
+## Arsitektur Singkat
 
-Meanwhile, the compiled output files will be generated in the `bin` folder by default.
+### Main Layer
+- `MainCLI.java`
+- Menampilkan menu CLI.
+- Menerima input pengguna.
+- Menghubungkan seluruh komponen aplikasi.
 
-> If you want to customize the folder structure, open `.vscode/settings.json` and update the related settings there.
+### Core Layer
+- `PromptGenerator.java`
+- Membentuk prompt berdasarkan template dan parameter yang diberikan.
 
-## Dependency Management
+### Model Layer
+- `PromptTemplate.java`
+- `SystemTemplate.java`
+- `CustomTemplate.java`
 
-The `JAVA PROJECTS` view allows you to manage your dependencies. More details can be found [here](https://github.com/microsoft/vscode-java-dependency#manage-dependencies).
+Menyimpan struktur data yang digunakan aplikasi.
+
+### Database Layer
+- `DatabaseConfig.java`
+- `DBManager.java`
+
+Mengelola:
+- Koneksi database
+- Penyimpanan history prompt
+- Penyimpanan template kustom
+- Operasi CRUD
+
+### Utility Layer
+- `FileExporter.java`
+
+Mengekspor hasil prompt ke:
+- `.txt`
+- `.json`
+
+## Alur Kerja
+
+1. Aplikasi dijalankan melalui `MainCLI`.
+2. Sistem mencoba koneksi database.
+3. User memilih menu.
+4. Prompt dibentuk oleh `PromptGenerator`.
+5. Data disimpan ke database melalui `DBManager`.
+6. Hasil dapat diekspor menggunakan `FileExporter`.
