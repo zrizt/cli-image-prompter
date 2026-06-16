@@ -92,11 +92,64 @@ public class MainCLI {
                 case "3":
                     System.out.println("\n--- CUSTOM TEMPLATES (DB) ---");
                     List<CustomTemplate> templates = dbManager.getCustomTemplates();
+                    
                     if (templates.isEmpty()) {
                         System.out.println("Belum ada template tersimpan.");
                     } else {
+                        // Tampilkan daftar template
                         for (CustomTemplate t : templates) {
                             System.out.println("[" + t.getId() + "] " + t.getTemplateName() + " (Lens: " + t.getFocalLength() + ")");
+                        }
+                        
+                        // Tambahan Logika Interaktif
+                        System.out.print("\nPilih ID Template untuk digunakan (atau ketik 0 untuk batal): ");
+                        String idInput = scanner.nextLine();
+                        
+                        if (!idInput.equals("0")) {
+                            try {
+                                int selectedId = Integer.parseInt(idInput);
+                                CustomTemplate selectedTemplate = null;
+                                
+                                // Cari template yang sesuai dengan ID
+                                for (CustomTemplate t : templates) {
+                                    if (t.getId() == selectedId) {
+                                        selectedTemplate = t;
+                                        break;
+                                    }
+                                }
+                                
+                                // Jika template ditemukan, proses generate
+                                if (selectedTemplate != null) {
+                                    System.out.print("Masukkan Subject baru untuk template ini: ");
+                                    String newSubject = scanner.nextLine();
+                                    
+                                    // Instansiasi object baru dengan subject dari user, tapi parameter dari database
+                                    CustomTemplate templateToGenerate = new CustomTemplate(
+                                        selectedTemplate.getId(),
+                                        selectedTemplate.getTemplateName(),
+                                        newSubject,
+                                        selectedTemplate.getCameraModel(),
+                                        selectedTemplate.getFocalLength(),
+                                        selectedTemplate.getAperture(),
+                                        selectedTemplate.getLightingType(),
+                                        selectedTemplate.getColorGrading()
+                                    );
+                                    
+                                    String hasilJson3 = PromptGenerator.generateJson(templateToGenerate);
+                                    
+                                    System.out.println("\n[OUTPUT PROMPT]");
+                                    System.out.println(hasilJson3);
+                                    
+                                    dbManager.saveHistory(hasilJson3);
+                                    exportPrompt(scanner, hasilJson3);
+                                    
+                                } else {
+                                    System.out.println("[ERROR] ID Template tidak ditemukan di database.");
+                                }
+                                
+                            } catch (NumberFormatException e) {
+                                System.out.println("[ERROR] Input ID harus berupa angka yang valid.");
+                            }
                         }
                     }
                     break;
