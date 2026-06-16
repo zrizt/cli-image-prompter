@@ -105,3 +105,7 @@ Mengekspor hasil prompt ke:
 4. Prompt dibentuk oleh `PromptGenerator`.
 5. Data disimpan ke database melalui `DBManager`.
 6. Hasil dapat diekspor menggunakan `FileExporter`.
+
+## Flowchart
+
+<img width="1295" height="1022" alt="flowchart" src="https://github.com/user-attachments/assets/b377f8e9-166d-4fa2-8041-a56fab65495e" />
