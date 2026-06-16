@@ -109,3 +109,13 @@ Mengekspor hasil prompt ke:
 ## Flowchart
 
 <img width="1295" height="1022" alt="flowchart" src="https://github.com/user-attachments/assets/b377f8e9-166d-4fa2-8041-a56fab65495e" />
+
+## Test Case Table
+
+| ID Test | Skenario Uji (Test Case) | Input Pengguna (Tindakan) | Output yang Diharapkan (Ekspektasi) | Pass | Fail |
+|----------|--------------------------|----------------------------|--------------------------------------|------|------|
+| TC-01 | Normal Case: Membuat prompt dari System Template. | Pilih Menu 1 → Pilih Template 2 → Subject: *A futuristic city* → Ekspor: N | Mencetak JSON dengan subjek yang benar dan kembali ke Menu Utama. | - [ ] | - [ ] |
+| TC-02 | Normal Case: Membuat Custom Template & Simpan ke DB. | Pilih Menu 2 → Isi semua parameter → Simpan: Y → Nama: *TestStyle* | Mencetak JSON, ada notifikasi sukses simpan DB, dan tampil di Menu 3. | - [ ] | - [ ] |
+| TC-03 | Invalid Input: Memilih menu yang tidak ada. | Pada Main Menu, ketik angka **9** atau huruf **A**. | Menampilkan pesan **[ERROR]** dan mengulang Main Menu tanpa crash. | - [ ] | - [ ] |
+| TC-04 | Invalid Input: Memilih ID template yang salah. | Pilih Menu 3 → Masukkan ID **999** (yang belum ada di DB). | Menampilkan pesan **[ERROR] ID Template tidak ditemukan** tanpa crash. | - [ ] | - [ ] |
+| TC-05 | Edge Case: Input String kosong. | Pilih Menu 2 → Langsung tekan Enter (kosong) di isian Subject dan Camera. | Sistem tetap menerima (variabel berisi string kosong `""`) dan tidak crash. | - [ ] | - [ ] |
