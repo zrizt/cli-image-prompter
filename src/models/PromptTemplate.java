@@ -1,6 +1,6 @@
 package models;
 
-public abstract class PromptTemplate {
+public abstract class PromptTemplate { // Parent Class untuk Template Prompt
     protected String subject;
     protected String cameraModel;
     protected String focalLength;
