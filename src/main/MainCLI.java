@@ -100,7 +100,7 @@ public class MainCLI {
                         for (CustomTemplate t : templates) {
                             System.out.println("[" + t.getId() + "] " + t.getTemplateName() + " (Lens: " + t.getFocalLength() + ")");
                         }
-                        
+                         
                         // Tambahan Logika Interaktif
                         System.out.print("\nPilih ID Template untuk digunakan (atau ketik 0 untuk batal): ");
                         String idInput = scanner.nextLine();
