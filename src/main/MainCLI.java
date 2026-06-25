@@ -96,13 +96,11 @@ public class MainCLI {
                     if (templates.isEmpty()) {
                         System.out.println("Belum ada template tersimpan.");
                     } else {
-                        // Tampilkan daftar template
                         for (CustomTemplate t : templates) {
                             System.out.println("[" + t.getId() + "] " + t.getTemplateName() + " (Lens: " + t.getFocalLength() + ")");
                         }
-                         
-                        // Tambahan Logika Interaktif
-                        System.out.print("\nPilih ID Template untuk digunakan (atau ketik 0 untuk batal): ");
+                        
+                        System.out.print("\nPilih ID Template (atau ketik 0 untuk batal): ");
                         String idInput = scanner.nextLine();
                         
                         if (!idInput.equals("0")) {
@@ -110,7 +108,6 @@ public class MainCLI {
                                 int selectedId = Integer.parseInt(idInput);
                                 CustomTemplate selectedTemplate = null;
                                 
-                                // Cari template yang sesuai dengan ID
                                 for (CustomTemplate t : templates) {
                                     if (t.getId() == selectedId) {
                                         selectedTemplate = t;
@@ -118,37 +115,72 @@ public class MainCLI {
                                     }
                                 }
                                 
-                                // Jika template ditemukan, proses generate
                                 if (selectedTemplate != null) {
-                                    System.out.print("Masukkan Subject baru untuk template ini: ");
-                                    String newSubject = scanner.nextLine();
+                                    // SUB-MENU MANAJEMEN TEMPLATE
+                                    System.out.println("\nAksi untuk Template [" + selectedTemplate.getTemplateName() + "]:");
+                                    System.out.println("1. Gunakan & Generate Prompt");
+                                    System.out.println("2. Edit Template");
+                                    System.out.println("3. Hapus Template");
+                                    System.out.print("Pilih aksi [1-3]: ");
+                                    String aksi = scanner.nextLine();
                                     
-                                    // Instansiasi object baru dengan subject dari user, tapi parameter dari database
-                                    CustomTemplate templateToGenerate = new CustomTemplate(
-                                        selectedTemplate.getId(),
-                                        selectedTemplate.getTemplateName(),
-                                        newSubject,
-                                        selectedTemplate.getCameraModel(),
-                                        selectedTemplate.getFocalLength(),
-                                        selectedTemplate.getAperture(),
-                                        selectedTemplate.getLightingType(),
-                                        selectedTemplate.getColorGrading()
-                                    );
-                                    
-                                    String hasilJson3 = PromptGenerator.generateJson(templateToGenerate);
-                                    
-                                    System.out.println("\n[OUTPUT PROMPT]");
-                                    System.out.println(hasilJson3);
-                                    
-                                    dbManager.saveHistory(hasilJson3);
-                                    exportPrompt(scanner, hasilJson3);
-                                    
+                                    if (aksi.equals("1")) {
+                                        // Aksi 1: Generate Prompt (Kode Lama)
+                                        System.out.print("Masukkan Subject baru: ");
+                                        String newSubject = scanner.nextLine();
+                                        CustomTemplate templateToGenerate = new CustomTemplate(
+                                            selectedTemplate.getId(), selectedTemplate.getTemplateName(), newSubject,
+                                            selectedTemplate.getCameraModel(), selectedTemplate.getFocalLength(),
+                                            selectedTemplate.getAperture(), selectedTemplate.getLightingType(),
+                                            selectedTemplate.getColorGrading()
+                                        );
+                                        String hasilJson3 = PromptGenerator.generateJson(templateToGenerate);
+                                        System.out.println("\n[OUTPUT PROMPT]\n" + hasilJson3);
+                                        dbManager.saveHistory(hasilJson3);
+                                        exportPrompt(scanner, hasilJson3);
+                                        
+                                    } else if (aksi.equals("2")) {
+                                        // Aksi 2: Edit Template (UPDATE)
+                                        System.out.println("\n--- EDIT TEMPLATE ---");
+                                        System.out.println("(Tekan ENTER untuk menggunakan data lama)");
+                                        
+                                        System.out.print("Nama Template [" + selectedTemplate.getTemplateName() + "]: ");
+                                        String eNama = scanner.nextLine(); if(eNama.isEmpty()) eNama = selectedTemplate.getTemplateName();
+                                        
+                                        System.out.print("Camera Model [" + selectedTemplate.getCameraModel() + "]: ");
+                                        String eCam = scanner.nextLine(); if(eCam.isEmpty()) eCam = selectedTemplate.getCameraModel();
+                                        
+                                        System.out.print("Focal Length [" + selectedTemplate.getFocalLength() + "]: ");
+                                        String eFocal = scanner.nextLine(); if(eFocal.isEmpty()) eFocal = selectedTemplate.getFocalLength();
+                                        
+                                        System.out.print("Aperture [" + selectedTemplate.getAperture() + "]: ");
+                                        String eAper = scanner.nextLine(); if(eAper.isEmpty()) eAper = selectedTemplate.getAperture();
+                                        
+                                        System.out.print("Lighting Type [" + selectedTemplate.getLightingType() + "]: ");
+                                        String eLight = scanner.nextLine(); if(eLight.isEmpty()) eLight = selectedTemplate.getLightingType();
+                                        
+                                        System.out.print("Color Grading [" + selectedTemplate.getColorGrading() + "]: ");
+                                        String eColor = scanner.nextLine(); if(eColor.isEmpty()) eColor = selectedTemplate.getColorGrading();
+                                        
+                                        // Eksekusi Update ke DB. Subject dikosongkan karena bersifat dinamis saat di-generate.
+                                        dbManager.updateCustomTemplate(selectedTemplate.getId(), eNama, "", eCam, eFocal, eAper, eLight, eColor);
+                                        
+                                    } else if (aksi.equals("3")) {
+                                        // Aksi 3: Hapus Template (DELETE)
+                                        System.out.print("PERINGATAN! Yakin ingin menghapus '" + selectedTemplate.getTemplateName() + "'? (Y/N): ");
+                                        if (scanner.nextLine().equalsIgnoreCase("Y")) {
+                                            dbManager.deleteCustomTemplate(selectedTemplate.getId());
+                                        } else {
+                                            System.out.println("Penghapusan dibatalkan.");
+                                        }
+                                    } else {
+                                        System.out.println("[ERROR] Pilihan aksi tidak valid.");
+                                    }
                                 } else {
-                                    System.out.println("[ERROR] ID Template tidak ditemukan di database.");
+                                    System.out.println("[ERROR] ID Template tidak ditemukan.");
                                 }
-                                
                             } catch (NumberFormatException e) {
-                                System.out.println("[ERROR] Input ID harus berupa angka yang valid.");
+                                System.out.println("[ERROR] Input ID harus berupa angka.");
                             }
                         }
                     }

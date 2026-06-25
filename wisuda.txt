@@ -1,0 +1,14 @@
+{
+  "prompt_config": {
+    "subject": "wisuda",
+    "camera_settings": {
+      "model": "canon ixus",
+      "focal_length": "55mm",
+      "aperture": "1.7"
+    },
+    "environment": {
+      "lighting": "cinematic",
+      "color_grading": "teal"
+    }
+  }
+}

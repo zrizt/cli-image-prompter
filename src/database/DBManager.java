@@ -80,4 +80,47 @@ public class DBManager {
         }
         return templates;
     }
+
+    // 5. UPDATE: Mengubah data template yang sudah ada di database
+    public void updateCustomTemplate(int id, String nama, String subject, String camera, String focal, String aperture, String lighting, String color) {
+        String query = "UPDATE templates SET nama_template=?, subject=?, camera_model=?, focal_length=?, aperture=?, lighting_type=?, color_grading=? WHERE id=?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setString(1, nama);
+            stmt.setString(2, subject);
+            stmt.setString(3, camera);
+            stmt.setString(4, focal);
+            stmt.setString(5, aperture);
+            stmt.setString(6, lighting);
+            stmt.setString(7, color);
+            stmt.setInt(8, id);
+            
+            int rowsAffected = stmt.executeUpdate(); // Mengembalikan jumlah baris yang terpengaruh
+            if (rowsAffected > 0) {
+                System.out.println("[SUCCESS] Template ID " + id + " berhasil diperbarui!");
+            } else {
+                System.out.println("[ERROR] Gagal memperbarui. ID tidak ditemukan.");
+            }
+        } catch (SQLException e) {
+            System.out.println("[ERROR] Terjadi kesalahan saat update: " + e.getMessage());
+        }
+    }
+
+    // 6. DELETE: Menghapus template dari database
+    public void deleteCustomTemplate(int id) {
+        String query = "DELETE FROM templates WHERE id=?";
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement stmt = conn.prepareStatement(query)) {
+            stmt.setInt(1, id);
+            
+            int rowsAffected = stmt.executeUpdate();
+            if (rowsAffected > 0) {
+                System.out.println("[SUCCESS] Template ID " + id + " berhasil dihapus dari sistem!");
+            } else {
+                System.out.println("[ERROR] Gagal menghapus. ID tidak ditemukan.");
+            }
+        } catch (SQLException e) {
+            System.out.println("[ERROR] Terjadi kesalahan saat hapus: " + e.getMessage());
+        }
+    }
 }

@@ -1,0 +1,14 @@
+{
+  "prompt_config": {
+    "subject": "portrait wisuda",
+    "camera_settings": {
+      "model": "Sony Cyber-shot 2005",
+      "focal_length": "10mm",
+      "aperture": "f/5.6"
+    },
+    "environment": {
+      "lighting": "Harsh Flash, Direct Sunlight",
+      "color_grading": "Muted, Low Contrast"
+    }
+  }
+}
