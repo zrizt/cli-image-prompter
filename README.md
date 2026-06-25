@@ -5,9 +5,10 @@ Proyek ini diinisiasi oleh kelompok guna memenuhi tugas besar mata kuliah Pemrog
 
 ## Kelompok
 
-- Dea Amellya       24101140
-- Muhammad Rafli    24101140
+- Dea Amellya       241011400089
+- Muhammad Rafli    241011400075
 - Rizki Ramadani    241011400098
+Kode kelas: 04TPLP002
 
 ## Struktur Folder
 
