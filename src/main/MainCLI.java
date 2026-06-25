@@ -17,9 +17,9 @@ public class MainCLI {
         SystemTemplate cinematic = new SystemTemplate("Cinmatic Movie", "", "ARRI Alexa 65", "35mm", "f/1.4", "Volumetric Fog, Golden Hour", "Teal and Orange");
         SystemTemplate digicam = new SystemTemplate("Retro Digicam", "", "Sony Cyber-shot 2005", "10mm", "f/5.6", "Harsh Flash, Direct Sunlight", "Muted, Low Contrast");
 
-        System.out.println("====================================================");
-        System.out.println("             DRR Image Prompt Generator!            ");
-        System.out.println("====================================================");
+        System.out.println("======================================================");
+        System.out.println("             DRR Image Prompt Configurator            ");
+        System.out.println("======================================================");
         
         while (isRunning) {
             System.out.println("\n--- MAIN MENU ---");
