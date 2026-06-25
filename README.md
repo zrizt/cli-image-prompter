@@ -91,6 +91,26 @@ Mengelola:
 - Penyimpanan template kustom
 - Operasi CRUD
 
+DB Design
+```SQL    
+CREATE TABLE templates (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nama_template VARCHAR(100) NOT NULL,
+    subject VARCHAR(255),
+    camera_model VARCHAR(100),
+    focal_length VARCHAR(50),
+    aperture VARCHAR(50),
+    lighting_type VARCHAR(100),
+    color_grading VARCHAR(100)
+);
+
+CREATE TABLE history (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    final_output TEXT NOT NULL,
+    waktu_generate TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+```
+
 ### Utility Layer
 - `FileExporter.java`
 
